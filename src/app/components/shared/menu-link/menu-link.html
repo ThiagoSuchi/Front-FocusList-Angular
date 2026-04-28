@@ -1,1 +1,4 @@
-<li [routerLink]="route()" class="py-2">{{ label() }}</li>
+<li [routerLink]="route()" routerLinkActive="bg-zinc-200" [routerLinkActiveOptions]="{ exact: true }" class="menu-link py-2">
+    <span class="material-symbols-outlined">{{ icon() }}</span>
+    <span>{{ label() }}</span>
+</li>
