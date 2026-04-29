@@ -35,11 +35,13 @@ export class TaskService {
   }
 
   // Atualizar status da tarefa
-  taskCompleted(task: Task) {
-    this._tasks.update(t => 
-      t.map(t => t.id === task.id ? {...t, completed: !t.completed} : t)
+ taskCompleted(task: Task) {
+  this._tasks.update((tasks) => 
+    tasks.map((t) => 
+      t.id === task.id ? { ...t, completed: !t.completed } : t
     )
-  }
+  )
+ }
 
   // Deletar tarefa
   deleteTask(taskId: string) {
