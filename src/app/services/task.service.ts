@@ -1,6 +1,6 @@
 // Lógica de negócio e persistência (localStorage)
 
-import { Injectable, signal } from '@angular/core';
+import { effect, Injectable, signal } from '@angular/core';
 import { Task } from '../models/task.models';
 
 @Injectable({
@@ -11,8 +11,19 @@ export class TaskService {
 
   readonly tasks = this._tasks.asReadonly();
 
-  constructor() {}
+  constructor() {
+    const key = 'tasks'
+    
+    this._load(key);
 
+    effect(() => {
+      const listTasks = this._tasks();
+
+      localStorage.setItem(key, JSON.stringify(listTasks));
+    })
+  }
+
+  // Criar nova tarefa
   postTask(title: string) {
     const newTask: Task = {
       id: crypto.randomUUID(),
@@ -20,10 +31,24 @@ export class TaskService {
       completed: false
     };
 
-    this._tasks.update(t => [...t, newTask]);
+    this._tasks.update(task => [...task, newTask]);
   }
 
+  // Atualizar status da tarefa
   taskCompleted(task: Task) {
-    task.completed = !task.completed;
+    this._tasks.update(t => 
+      t.map(t => t.id === task.id ? {...t, completed: !t.completed} : t)
+    )
+  }
+
+  // Deletar tarefa
+  deleteTask(taskId: string) {
+    this._tasks.update(task => task.filter(item => item.id != taskId));
+  }
+
+  // Persistência do ToDo no LocalStorage
+  _load(key: string) {
+    const data = localStorage.getItem(key);
+    return data ? this._tasks.set(JSON.parse(data)) : []
   }
 }
