@@ -17,7 +17,40 @@ body {
 @layer components {
     .menu-link {
         @apply flex items-center 
-               rounded-lg gap-3 px-4 
-               cursor-pointer
+        rounded-lg gap-3 px-4 
+        cursor-pointer;
+    }
+
+    .box-preference {
+        @apply flex flex-col justify-center 
+        p-6 w-full h-45 rounded-xl 
+        cursor-pointer hover:shadow-lg 
+        hover:-translate-y-1 
+        transition-all duration-300 
+        ease-in-out;
+    }
+
+    .session-preference {
+        @apply flex gap-5 
+        items-center rounded-xl 
+        border-2 mt-5 p-8
+        border-zinc-200 h-30;
+    }
+
+    .icons-preference {
+        @apply transition-colors text-zinc-600 
+        bg-zinc-200 group-has-[:checked]:text-blue-600 
+        group-has-[:checked]:bg-blue-100;
+    }
+
+    .checkbox {
+        @apply w-[52px] h-[30px] bg-gray-300 rounded-full 
+        peer-checked:after:translate-x-full 
+        peer-checked:after:border-white after:content-[''] 
+        after:absolute after:top-[4px] after:left-[4px] 
+        after:bg-white after:border-gray-400 
+        after:border after:rounded-full after:h-[22px] 
+        after:w-[22px] after:transition-all 
+        peer-checked:bg-blue-600
     }
 }
