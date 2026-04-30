@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-20 w-220 m-10">
+<div class="flex flex-col gap-20 w-220 m-5">
     <app-title main="Foco de Hoje" sub="Mantenha a disciplina. Matenha a calma. Seja produtivo." size="text-5xl" font="font-bold"></app-title>
 
     <!--Box para adicionar tarefas-->
@@ -8,7 +8,7 @@
         
         <p class="p-5 text-zinc-700">{{ inputTask.value.length }}/70</p>
 
-        <button class="bg-black rounded-lg cursor-pointer active:bg-zinc-700 text-white p-1 px-4"
+        <button class="bg-black rounded-lg cursor-pointer hover:bg-zinc-700 transition-all text-white p-1 px-4"
             (click)="postTask($event, inputTask)"
         >
             Adicionar
@@ -54,9 +54,9 @@
 
     <!--Footer-->
     <div>
-        <div class="border-t-1 w-full mt-20 mb-10 border-t-zinc-300"></div>
+        <div class="border-t-1 w-full mt-30 mb-10 border-t-zinc-300"></div>
         <div class="flex justify-center">
-            <h1 class="text-zinc-700 text-xs bg-amber-200 py-2 px-15">DESENVOLVIDO POR THIAGO HENS SUCHI | COM ANGULAR &
+            <h1 class="text-white text-xs bg-zinc-700 py-2 px-15">DESENVOLVIDO POR THIAGO HENS SUCHI | COM ANGULAR &
                 SIGNALS
             </h1>
         </div>
