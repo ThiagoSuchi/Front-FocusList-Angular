@@ -1,4 +1,4 @@
-// Lógica de negócio e persistência (localStorage)
+// Lógica de negócio
 
 import { inject, Injectable } from '@angular/core';
 import { ITask, type IDeleteRes, type ITaskDTO } from '../models/task.models';
@@ -38,7 +38,7 @@ export class TaskService {
   }
 
   // Deletar tarefa
-  deleteTask(taskId: string): Observable<IDeleteRes> {
+  deleteTask(taskId: number): Observable<IDeleteRes> {
     return this._httpClient.delete<IDeleteRes>(`${API}/${taskId}`);
   }
 }
