@@ -6,5 +6,6 @@ import { Menu } from "../menu/menu";
   imports: [Menu],
   templateUrl: './page.html',
   styleUrl: './page.css',
+  standalone: true
 })
 export class Page {}
