@@ -6,5 +6,6 @@ import { Title } from "../../components/shared/title/title";
   imports: [Title],
   templateUrl: './my-profile.html',
   styleUrl: './my-profile.css',
+  standalone: true
 })
 export class MyProfile {}
