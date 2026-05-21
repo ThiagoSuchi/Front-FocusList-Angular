@@ -3,22 +3,29 @@ import { Title } from "../../components/shared/title/title";
 import { TaskService } from '../../services/task.service';
 import type { ITask } from '../../models/task.models';
 import { delay, finalize, Subject, takeUntil } from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SnackBarService } from '../../components/shared/material/snack-bar.service';
+import { Footer } from '../../components/shared/footer/footer';
 
 @Component({
   selector: 'app-today',
-  imports: [Title],
+  imports: [Title, MatProgressSpinnerModule, Footer],
   templateUrl: './today.html',
   styleUrl: './today.css',
   standalone: true
 })
 export class Today implements OnInit, OnDestroy {
-  readonly taskService = inject(TaskService);
+  private readonly taskService = inject(TaskService);
 
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
 
-  public tasks = signal<ITask[]>([]);
+  public readonly tasks = signal<ITask[]>([]);
+
+  public readonly isLoadingTask = signal(false);
 
   public errorMessage = '';
+
+  private readonly snackBarService = inject(SnackBarService);
 
   ngOnInit(): void {
     this.getAllTask();
@@ -45,9 +52,13 @@ export class Today implements OnInit, OnDestroy {
     const title = valueInput.value.trim();
     if (!title) return;
 
+    this.isLoadingTask.set(true);
+
     this.taskService.postTask({ title, completed: false })
       .pipe(
+        delay(1000),
         takeUntil(this.destroy$),
+        finalize(() => this.isLoadingTask.set(false))
       )
       .subscribe({
         next: (createdTask) => {
@@ -55,9 +66,9 @@ export class Today implements OnInit, OnDestroy {
           valueInput.value = '';
         },
         error: (err) => {
-          console.error('Erro ao criar task', err)
-          this.errorMessage = err;
-        } 
+          this.snackBarService.showSnackBar(err.error.message, 4000, 'end', 'top');
+        }, 
+        complete: () => this.snackBarService.showSnackBar('Tarefa criada com sucesso!', 4000, 'end', 'top')
       });
   }
 
