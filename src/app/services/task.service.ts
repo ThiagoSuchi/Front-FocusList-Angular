@@ -26,14 +26,11 @@ export class TaskService {
     return this._httpClient.post<ITask>(API, title);
   }
 
-  // IMPLEMENTAR EDIÇÃO(UPDATE) DE TAREFA
-
-
   // Atualizar status da tarefa
-  taskCompleted(task: ITask): Observable<ITask> {
+  updateTask(task: ITask): Observable<ITask> {
     return this._httpClient.put<ITask>(`${API}/${task.id}`, {
       title: task.title,
-      completed: !task.completed
+      completed: task.completed
     });
   }
 
