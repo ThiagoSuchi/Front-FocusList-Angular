@@ -1,7 +1,7 @@
 import { Component, computed, inject, OnInit, signal, type OnDestroy } from '@angular/core';
 import { Title } from "../../components/shared/title/title";
 import { TaskService } from '../../services/task.service';
-import type { ITask } from '../../models/task.models';
+import type { ITask, ITaskDTO } from '../../models/task.models';
 import { delay, finalize, Subject, takeUntil } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SnackBarService } from '../../components/shared/material/snack-bar.service';
@@ -16,6 +16,7 @@ import { Footer } from '../../components/shared/footer/footer';
 })
 export class Today implements OnInit, OnDestroy {
   private readonly taskService = inject(TaskService);
+  private readonly snackBarService = inject(SnackBarService);
 
   private readonly destroy$ = new Subject<void>();
 
@@ -23,9 +24,8 @@ export class Today implements OnInit, OnDestroy {
 
   public readonly isLoadingTask = signal(false);
 
-  public errorMessage = '';
-
-  private readonly snackBarService = inject(SnackBarService);
+  public editingTaskId: number | null = null;
+  public editingTitle: string = '';
 
   ngOnInit(): void {
     this.getAllTask();
@@ -56,7 +56,7 @@ export class Today implements OnInit, OnDestroy {
 
     this.taskService.postTask({ title, completed: false })
       .pipe(
-        delay(1000),
+        delay(300),
         takeUntil(this.destroy$),
         finalize(() => this.isLoadingTask.set(false))
       )
@@ -67,22 +67,46 @@ export class Today implements OnInit, OnDestroy {
         },
         error: (err) => {
           this.snackBarService.showSnackBar(err.error.message, 4000, 'end', 'top');
-        }, 
+        },
         complete: () => this.snackBarService.showSnackBar('Tarefa criada com sucesso!', 4000, 'end', 'top')
       });
   }
 
-  taskCompleted(task: ITask): void {
-    this.taskService.taskCompleted(task)
+  // ---------- Atualizar tarefa --------------
+  startEdit(task: ITask): void {
+    this.editingTaskId = task.id;
+    this.editingTitle = task.title;
+  }
+
+  confirmEdit(task: ITask): void {
+    const updatedTask = {
+      ...task,
+      title: this.editingTitle
+    }
+
+    this.updateTask(updatedTask);
+    this.editingTaskId = null;
+    this.editingTitle = '';
+  }
+
+  cancelEdit(): void {
+    this.editingTaskId = null;
+    this.editingTitle = '';
+  }
+
+  updateTask(task: ITask): void {
+    const updatedTask = {
+      id: task.id,
+      title: task.title,
+      completed: task.completed
+    }
+
+    this.taskService.updateTask(updatedTask)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: () => {
           this.tasks.update(tasks =>
-            tasks.map(t =>
-              t.id === task.id
-                ? { ...t, completed: !t.completed }
-                : t
-            )
+            tasks.map(t => t.id === updatedTask.id ? updatedTask : t)
           )
         }// Depois de persistir no banco, o angular entra no nó(next) e salva localmente.
       })
