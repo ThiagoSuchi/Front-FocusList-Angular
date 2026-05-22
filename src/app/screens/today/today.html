@@ -1,6 +1,5 @@
 <div class="flex flex-col gap-20 w-220 m-5 pb-10">
-    <app-title main="Foco de Hoje" sub="Mantenha a disciplina. Matenha a calma. Seja produtivo." size="text-5xl"
-        font="font-bold"></app-title>
+    <app-title main="Foco de Hoje" sub="Mantenha a disciplina. Matenha a calma. Seja produtivo." size="text-5xl" font="font-bold"></app-title>
 
     <!--Box para adicionar tarefas-->
     <div class="flex items-center p-3 bg-white rounded-lg h-19 shadow-sm">
@@ -38,8 +37,9 @@
 
         @for (task of tasks(); track task.id) {
             <div class="flex items-center gap-4 mt-1 mb-4 p-4 bg-white rounded-lg border border-zinc-200 h-15">
+                <!--CHECKLIST - PENDENTE/CONCLUÍDO-->
                 <label class="relative flex items-center justify-center cursor-pointer">
-                    <input type="checkbox" class="peer sr-only" [checked]="task.completed" (change)="taskCompleted(task)" />
+                    <input type="checkbox" class="peer sr-only" [checked]="task.completed" (change)="updateTask({...task, completed: !task.completed})" />
                     <div
                         class="w-6 h-6 border-2 border-slate-900 rounded-md peer-checked:bg-blue-600 peer-checked:border-blue-600 transition-all">
                     </div>
@@ -49,14 +49,29 @@
                     </svg>
                 </label>
 
-                <span [class.line-through]="task.completed" [class.text-zinc-500]="task.completed">
+                <!--!!!!!!! REFATORAR OS BOTÔES PARA IMPLEMENTAR FUNÇÔES DE EDIÇÂO DA TASK !!!!!!!!-->
+
+                <!--TÍTULO DA TASK-->
+                <span class="flex-1 min-w-0 wrap-break-word" 
+                    [class.line-through]="task.completed" 
+                    [class.text-zinc-500]="task.completed">
                     {{ task.title }}
                 </span>
-
-                <button class="ml-auto flex items-center text-zinc-400 hover:text-red-500 transition-colors cursor-pointer"
-                    (click)="deleteTask(task.id)">
+                
+                <button class="ml-auto flex items-center gap-2 text-zinc-400 hover:text-red-500 transition-colors cursor-pointer">
+                    <!--EDITAR TASK-->
                     @if (!task.completed) {
-                        <span class="material-symbols-outlined">delete</span>
+                        <button class="flex items-center text-zinc-400 hover:text-green-500 transition-colors cursor-pointer">
+                            <span class="material-symbols-outlined">edit_square</span>
+                        </button>
+                    }
+                
+                    <!--DELETAR TASK-->
+                    @if (!task.completed) {
+                        <button class="flex items-center text-zinc-400 hover:text-red-500 transition-colors cursor-pointer"
+                            (click)="deleteTask(task.id)">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
                     }
                 </button>
             </div>
