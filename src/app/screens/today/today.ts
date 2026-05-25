@@ -1,15 +1,16 @@
 import { Component, computed, inject, OnInit, signal, type OnDestroy } from '@angular/core';
 import { Title } from "../../components/shared/title/title";
 import { TaskService } from '../../services/task.service';
-import type { ITask, ITaskDTO } from '../../models/task.models';
+import type { ITask } from '../../models/task.models';
 import { delay, finalize, Subject, takeUntil } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SnackBarService } from '../../components/shared/material/snack-bar.service';
 import { Footer } from '../../components/shared/footer/footer';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-today',
-  imports: [Title, MatProgressSpinnerModule, Footer],
+  imports: [Title, MatProgressSpinnerModule, FormsModule, Footer],
   templateUrl: './today.html',
   styleUrl: './today.css',
   standalone: true
