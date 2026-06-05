@@ -13,11 +13,3 @@
   justify-content: center;
   align-items: center;
 }
-
-.brand {
-  background-color: #000000;
-  background-image: url('../../../../public/background2.jpg');
-  background-size: 100% 90%;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-}

@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { RouterLink } from "@angular/router";
+import { DesignAuth } from '../../components/shared/design-auth/design-auth';
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  imports: [RouterLink, DesignAuth],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
 export class Login {
-  public senhaVisivel = false;
+  public viewPassword = signal(false);
 
   togglePassword() {
-    this.senhaVisivel = !this.senhaVisivel
+    this.viewPassword.update(v => !v);
   }
 }
