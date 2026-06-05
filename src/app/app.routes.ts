@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { Login } from './screens/login/login';
 
 export const routes: Routes = [
+    // ** nested routes (rotas aninhadas) **
+
     // Rotas sem sidebar
     { path: 'login', component: Login },
     { path: 'register', loadComponent: () => import('./screens/register/register').then(r => r.Register) },
