@@ -1,0 +1,59 @@
+<div class="relative login-page">
+  <div class="absolute flex flex-col justify-center items-center right-0 bg-[#f3f3f3] w-200 h-full">
+    <div class="flex flex-col gap-3 mb-14 w-full px-30">
+      <h1 class="text-5xl font-semibold">Bem vindo de
+        <span class="text-white bg-zinc-700 px-1 -skew-x-24 inline-block">volta</span>
+      </h1>
+      <p class="text-zinc-500 text-[12pt]">Acesse sua conta para continuar organizando suas tarefa.</p>
+    </div>
+
+    <form class="flex flex-col gap-6 mb-15 w-full px-30">
+      <div class="flex flex-col gap-2">
+        <label class="text-[14pt] font-medium" for="email">E-mail</label>
+        <input class="bg-[#E4E4E7] text-[15pt] focus:outline-1 text-[#878a91] h-15 rounded-xl px-5" type="email" id="email"
+          placeholder="example@gmail.com">
+      </div>
+
+      <div class="relative flex flex-col gap-2">
+        <label class="text-[14pt] font-medium" for="senha">
+          Senha
+        </label>
+        <input 
+          class="bg-[#E4E4E7] text-[15pt] text-[#878a91] h-15 rounded-xl px-5 focus:outline-1"
+          [type]="senhaVisivel ? 'text' : 'password'" id="senha" placeholder="Sua senha">
+        <span class="material-symbols-outlined text-[#A1A1AA] cursor-pointer absolute right-4 top-12" (click)="togglePassword()">
+          {{ senhaVisivel ? 'visibility' : 'visibility_off' }}
+        </span>
+      </div>
+
+      <div class="flex justify-between">
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" class="peer sr-only" />
+
+          <div class="relative w-6 h-6 flex-shrink-0 border-2 border-slate-900 rounded-lg 
+                peer-checked:bg-blue-600 peer-checked:border-blue-600 
+                transition-all [&>svg]:opacity-0 peer-checked:[&>svg]:opacity-100">
+            <svg class="absolute inset-0 m-auto w-4 h-4 text-white pointer-events-none transition-opacity" fill="none"
+              stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+
+          <span class="text-[14pt] text-zinc-700">Lembrar-me</span>
+        </label>
+
+        <span class="esqueceu-senha hover:text-zinc-400 transition-all cursor-pointer text-[14pt] text-zinc-500">Esqueci
+          a senha</span>
+      </div>
+
+      <button class="bg-black rounded-xl cursor-pointer h-15 text-[16pt] text-white" type="submit">
+        Entrar
+      </button>
+    </form>
+
+    <p class="text-[14pt] text-zinc-500">Não tenho uma conta?
+      <span class="cadastrar cursor-pointer transition-all hover:text-zinc-600 text-black font-semibold">Criar
+        conta</span>
+    </p>
+  </div>
+</div>
