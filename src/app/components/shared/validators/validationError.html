@@ -1,0 +1,7 @@
+@if (isInvalid()) {
+  <div class="error-message-container">
+    @for (message of activeErrors(); track message) {
+      <span class="text-red-700">{{ message }}</span>
+    }
+  </div>
+}
