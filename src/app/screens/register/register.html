@@ -47,6 +47,29 @@
         ></app-error-validations>
       </div>
 
+      <div class="relative flex flex-col gap-2 mt-6">
+        <label class="text-[12pt] font-medium" for="senha">Senha</label>
+        <input
+          (input)="verificarForca($event)"
+          formControlName="password"
+          [class.border-red-700]="form.get('password')?.invalid && form.get('password')?.touched"
+          [class.border-transparent]="!form.get('password')?.invalid && form.get('password')?.errors"
+          class="bg-[#E4E4E7] text-[12pt] text-[#878a91] h-15 rounded-[9px] px-5 border outline-0 border-[#ffffff00]"
+          [type]="viewPassword() ? 'text' : 'password'" id="senha" placeholder="Sua senha"
+        >
+        <span class="material-symbols-outlined text-[#A1A1AA] cursor-pointer absolute right-4 top-12" (click)="togglePassword()">
+          {{ viewPassword() ? 'visibility' : 'visibility_off' }}
+        </span>
+        <app-error-validations
+          [control]="form.get('password')"
+          [errors]="[
+            { key: 'required', message: 'Senha é obrigatório' },
+            { key: 'minlength', message: 'Senha deve ter no mínimo 8 caracteres. ' },
+            { key: 'pattern', message: 'Senha deve conter maiúscula, minúscula, número e símbolo' }
+          ]"
+        ></app-error-validations>
+      </div>
+
     </form>
   </div>
 </div>
