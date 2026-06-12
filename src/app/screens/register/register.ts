@@ -70,4 +70,7 @@ export class Register {
     const { name, email, password, confirmPassword } = this.form.getRawValue();
   }
 
+  togglePassword() {
+    this.viewPassword.update(v => !v);
+  }
 }
