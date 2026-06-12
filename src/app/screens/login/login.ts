@@ -24,6 +24,15 @@ export class Login {
     })
   }
 
+  protected submit() {
+    if (this.form.invalid) return;
+
+    const {email, password} = this.form.getRawValue();
+    //
+    // Salvar dados recebidos no banco
+    //
+  }
+
   togglePassword() {
     this.viewPassword.update(v => !v);
   }
