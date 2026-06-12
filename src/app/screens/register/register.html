@@ -1,1 +1,16 @@
-<p>register works!</p>
+<div class="flex w-full h-screen">
+  <app-design-auth class="flex-1 h-full"></app-design-auth>
+
+  <!--Cadastrar-->
+  <div class="flex flex-col justify-center items-center bg-[#f3f3f3] w-210 h-full shrink-0">
+    <div class="flex flex-col gap-3 mb-14 w-full px-50">
+      <h1 class="text-4xl font-semibold">Criar conta</h1>
+      <p class="text-zinc-500 text-[12pt]">Comece em menos de um minuto.</p>
+    </div>
+
+    <form 
+      [formGroup]="form" (ngSubmit)="submit()"
+      class="flex flex-col mb-15 w-full px-50">
+    </form>
+  </div>
+</div>
