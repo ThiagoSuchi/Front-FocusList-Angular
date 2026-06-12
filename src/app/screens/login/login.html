@@ -10,16 +10,21 @@
       <p class="text-zinc-500 text-[12pt]">Acesse sua conta para continuar.</p>
     </div>
 
-    <form class="flex flex-col gap-6 mb-15 w-full px-50">
+    <form [formGroup]="form" (ngSubmit)="submit()" 
+      class="flex flex-col gap-6 mb-15 w-full px-50">
       <div class="flex flex-col gap-2">
         <label class="text-[12pt] font-medium" for="email">E-mail</label>
-        <input class="bg-[#E4E4E7] text-[12pt] focus:outline-1 text-[#878a91] h-14 rounded-[9px] px-5" type="email" id="email"
-          placeholder="example@gmail.com">
+        <input 
+          formControlName="email"
+          class="bg-[#E4E4E7] text-[12pt] focus:outline-1 text-[#878a91] h-14 rounded-[9px] px-5" type="email" id="email"
+          placeholder="example@gmail.com"
+        >
       </div>
 
       <div class="relative flex flex-col gap-2">
         <label class="text-[12pt] font-medium" for="senha">Senha</label>
         <input
+          formControlName="password"
           class="bg-[#E4E4E7] text-[12pt] text-[#878a91] h-14 rounded-[9px] px-5 focus:outline-1"
           [type]="viewPassword() ? 'text' : 'password'" id="senha" placeholder="Sua senha">
         <span class="material-symbols-outlined text-[#A1A1AA] cursor-pointer absolute right-4 top-12" (click)="togglePassword()">
