@@ -64,4 +64,10 @@ export class Register {
     this.forca.set(Math.min(point, 4))
   }
 
+  submit() {
+    if  (this.form.invalid) return
+
+    const { name, email, password, confirmPassword } = this.form.getRawValue();
+  }
+
 }
