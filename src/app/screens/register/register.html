@@ -11,6 +11,24 @@
     <form 
       [formGroup]="form" (ngSubmit)="submit()"
       class="flex flex-col mb-15 w-full px-50">
+      <div class="flex flex-col gap-2">
+        <label class="text-[12pt] font-medium" for="nome">Nome</label>
+        <input 
+          formControlName="name"
+          [class.border-red-700]="form.get('name')?.invalid && form.get('name')?.touched"
+          [class.border-transparent]="!form.get('name')?.invalid && form.get('name')?.errors"
+          class="bg-[#E4E4E7] text-[12pt] text-[#878a91] h-15 rounded-[9px] px-5 outline-0 border border-[#ffffff00]" type="nome" id="nome"
+          placeholder="Diga seu nome"
+        >
+        <app-error-validations
+          [control]="form.get('name')"
+          [errors]="[
+            { key: 'required', message: 'Nome é obrigatório' },
+            { key: 'minlength', message: 'Nome deve ter no mínimo 3 caracteres' },
+          ]"
+        ></app-error-validations>
+      </div>
+
     </form>
   </div>
 </div>
