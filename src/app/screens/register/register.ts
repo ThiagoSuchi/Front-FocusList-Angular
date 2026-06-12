@@ -48,4 +48,20 @@ export class Register {
     return null
   }
 
+  forca = signal(0);
+
+  // Verifica a força da senha inserida
+  verificarForca(event: Event) {
+    const password = (event.target as HTMLInputElement).value;
+    let point = 0;
+
+    if (password.length >= 8) point++;
+    if (/[a-z]/.test(password)) point++;
+    if (/[A-Z]/.test(password)) point++;
+    if (/[@$!%*?&2]/.test(password)) point++;
+
+    // limitando a 4 para não passar da quantidade de barras
+    this.forca.set(Math.min(point, 4))
+  }
+
 }
