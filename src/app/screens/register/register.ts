@@ -35,4 +35,17 @@ export class Register {
     }, { validators: this.passwordMatchValidator })
   }
 
+  // Confirmação de senha, se o input senha for diferente do de confirmação emite um erro
+  private passwordMatchValidator(group: AbstractControl) {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+
+    if (password != confirmPassword) {
+      group.get('confirmPassword')?.setErrors({ passwordMismatch: true })
+    } else {
+      group.get('confirmPassword')?.setErrors(null);
+    }
+    return null
+  }
+
 }
