@@ -29,6 +29,24 @@
         ></app-error-validations>
       </div>
 
+      <div class="flex flex-col gap-2 mt-6">
+        <label class="text-[12pt] font-medium" for="email">E-mail</label>
+        <input 
+          formControlName="email"
+          [class.border-red-700]="form.get('email')?.invalid && form.get('email')?.touched"
+          [class.border-transparent]="!form.get('email')?.invalid && form.get('email')?.errors"
+          class="bg-[#E4E4E7] text-[12pt] text-[#878a91] h-15 rounded-[9px] px-5 outline-0 border border-[#ffffff00]" type="email" id="email"
+          placeholder="Example@gmail.com"
+        >
+        <app-error-validations 
+          [control]="form.get('email')"
+          [errors]="[
+            { key: 'required', message: 'Email é obrigatório' },
+            { key: 'email', message: 'Email inserido é inválido' },
+          ]"
+        ></app-error-validations>
+      </div>
+
     </form>
   </div>
 </div>
