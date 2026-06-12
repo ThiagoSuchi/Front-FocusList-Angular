@@ -70,6 +70,22 @@
         ></app-error-validations>
       </div>
 
+      <!--Barras indicadoras de senha fraca/forte-->
+      <div class="flex items-center gap-2 w-full mt-2">
+        <div class="bg-[#E4E4E7] w-100 h-1 rounded-full transition-all duration-400"
+          [class.bg-red-400]="forca() >= 1"
+        ></div>
+        <div class="bg-[#E4E4E7] w-100 h-1 rounded-full transition-all duration-400"
+          [class.bg-orange-300]="forca() >= 2"
+        ></div>
+        <div class="bg-[#E4E4E7] w-100 h-1 rounded-full transition-all duration-400"
+          [class.bg-green-500]="forca() >= 3"
+        ></div>
+        <div class="bg-[#E4E4E7] w-100 h-1 rounded-full transition-all duration-400"
+          [class.bg-green-600]="forca() >= 4"
+        ></div>
+      </div>
+
     </form>
   </div>
 </div>
