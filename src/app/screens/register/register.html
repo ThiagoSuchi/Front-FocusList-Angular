@@ -16,7 +16,6 @@
         <input 
           formControlName="name"
           [class.border-red-700]="form.get('name')?.invalid && form.get('name')?.touched"
-          [class.border-transparent]="!form.get('name')?.invalid && form.get('name')?.errors"
           class="bg-[#E4E4E7] text-[12pt] text-[#878a91] h-15 rounded-[9px] px-5 outline-0 border border-[#ffffff00]" type="nome" id="nome"
           placeholder="Diga seu nome"
         >
@@ -34,7 +33,6 @@
         <input 
           formControlName="email"
           [class.border-red-700]="form.get('email')?.invalid && form.get('email')?.touched"
-          [class.border-transparent]="!form.get('email')?.invalid && form.get('email')?.errors"
           class="bg-[#E4E4E7] text-[12pt] text-[#878a91] h-15 rounded-[9px] px-5 outline-0 border border-[#ffffff00]" type="email" id="email"
           placeholder="Example@gmail.com"
         >
@@ -53,7 +51,6 @@
           (input)="verificarForca($event)"
           formControlName="password"
           [class.border-red-700]="form.get('password')?.invalid && form.get('password')?.touched"
-          [class.border-transparent]="!form.get('password')?.invalid && form.get('password')?.errors"
           class="bg-[#E4E4E7] text-[12pt] text-[#878a91] h-15 rounded-[9px] px-5 border outline-0 border-[#ffffff00]"
           [type]="viewPassword() ? 'text' : 'password'" id="senha" placeholder="Sua senha"
         >
@@ -92,7 +89,6 @@
         <input
           formControlName="confirmPassword"
           [class.border-red-700]="form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.touched"
-          [class.border-transparent]="!form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.errors"
           class="bg-[#E4E4E7] text-[12pt] text-[#878a91] h-15 rounded-[9px] px-5 outline-0 border border-[#ffffff00]"
           [type]="viewPassword() ? 'text' : 'password'" id="confirm" placeholder="Repita sua senha">
         <span class="material-symbols-outlined text-[#A1A1AA] cursor-pointer absolute right-4 top-12" (click)="togglePassword()">

@@ -7,7 +7,7 @@ import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-register',
-  imports: [DesignAuth, RouterLink, JsonPipe, ReactiveFormsModule, ValidationError],
+  imports: [DesignAuth, RouterLink, ReactiveFormsModule, ValidationError],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
