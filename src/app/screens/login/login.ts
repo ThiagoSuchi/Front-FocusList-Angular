@@ -2,10 +2,11 @@ import { Component, signal } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { DesignAuth } from '../../components/shared/design-auth/design-auth';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ValidationError } from '../../components/shared/validators/validationError';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterLink, DesignAuth, ReactiveFormsModule],
+  imports: [RouterLink, DesignAuth, ReactiveFormsModule, ValidationError],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
