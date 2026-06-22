@@ -1,6 +1,6 @@
-import { Component, computed, inject, OnInit, signal, type OnDestroy } from '@angular/core';
+import { Component, inject, OnInit, signal, type OnDestroy } from '@angular/core';
 import { Title } from "../../components/shared/title/title";
-import { TaskService } from '../../services/task.service';
+import { TaskService } from '../../core/services/task.service';
 import type { ITask } from '../../models/task.models';
 import { delay, finalize, Subject, takeUntil } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
