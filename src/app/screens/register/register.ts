@@ -1,9 +1,10 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { DesignAuth } from '../../components/shared/design-auth/design-auth';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators, type AbstractControl } from '@angular/forms';
 import { ValidationError } from '../../components/shared/validators/validationError';
-import { JsonPipe } from '@angular/common';
+import { AuthService } from '../../core/services/auth.service';
+import { SnackBarService } from '../../components/shared/material/snack-bar.service';
 
 @Component({
   selector: 'app-register',
@@ -12,6 +13,10 @@ import { JsonPipe } from '@angular/common';
   styleUrl: './register.css',
 })
 export class Register {
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+  private readonly snackBarService = inject(SnackBarService);
+
   public readonly viewPassword = signal(false);
 
   protected form!: FormGroup;
@@ -67,7 +72,21 @@ export class Register {
   submit() {
     if  (this.form.invalid) return
 
-    const { name, email, password, confirmPassword } = this.form.getRawValue();
+    const dto = this.form.getRawValue();
+
+    this.authService.register(dto).subscribe({
+      next: (res) => {
+        const firstName = dto.name.split(' ')[0];
+
+        this.snackBarService.showSnackBar(res.message, 4000, 'end', 'top');
+        this.router.navigate(['/login'], {
+          queryParams: { name: firstName }
+        });
+      },
+      error: (err) => {
+        this.snackBarService.showSnackBar(err.error.message, 4000, 'end', 'top')
+      }
+    })
   }
 
   togglePassword() {
