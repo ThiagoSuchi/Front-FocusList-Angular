@@ -1,9 +1,11 @@
-import { Component, inject, Inject, signal } from '@angular/core';
-import { Router, RouterLink } from "@angular/router";
+import { Component, inject, Inject, OnInit, signal } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { DesignAuth } from '../../components/shared/design-auth/design-auth';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ValidationError } from '../../components/shared/validators/validationError';
 import { AuthService } from '../../core/services/auth.service';
+import { SnackBarService } from '../../components/shared/material/snack-bar.service';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -11,9 +13,19 @@ import { AuthService } from '../../core/services/auth.service';
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class Login {
+export class Login implements OnInit {
   private readonly authService = inject(AuthService);
-  private readonly route = inject(Router);
+  private readonly router = inject(Router);
+  private readonly snackBarService = inject(SnackBarService);
+  private readonly route = inject(ActivatedRoute);
+
+  public name = signal('');
+
+  ngOnInit(): void {
+    // Capturar o nome inserido no formulário de cadastro, e imprimir na tela
+    const nameParam = this.route.snapshot.queryParamMap.get('name');
+    nameParam ? this.name.set(nameParam) : this.name.set(' de Volta')
+  }
 
   public viewPassword = signal(false);
 
@@ -32,14 +44,14 @@ export class Login {
     const dto = this.form.getRawValue();
     
     this.authService.login(dto)
-      .pipe()
       .subscribe({
         next: (res) => {
           this.authService.saveToken(res.token);
-          this.route.navigate(['/home']);
+          this.router.navigate(['/home']);
         },
         error: (err) => {
           console.error('Erro ao fazer login: ', err);
+          this.snackBarService.showSnackBar(err.error.message, 4000, 'end', 'top')
         }
       })
   }
