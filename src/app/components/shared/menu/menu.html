@@ -10,7 +10,9 @@
         </nav>
     </div>
 
-    <button class="group absolute cursor-pointer transition-all hover:bg-zinc-700 bottom-0 right-0 flex justify-center p-2 rounded-full">
+    <button 
+        (click)="logout()"
+        class="group absolute cursor-pointer transition-all hover:bg-zinc-700 bottom-0 right-0 flex justify-center p-2 rounded-full">
         <span class="material-symbols-outlined transition-colors group-hover:text-white">logout</span>
     </button>
 </div>
