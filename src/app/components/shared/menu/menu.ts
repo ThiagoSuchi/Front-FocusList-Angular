@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MenuLink } from '../menu-link/menu-link';
 import { Title } from "../title/title";
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -12,4 +13,10 @@ import { Title } from "../title/title";
   },
   standalone: true
 })
-export class Menu {}
+export class Menu {
+  public readonly authService = inject(AuthService);
+
+  logout() {
+    this.authService.logout();
+  }
+}
