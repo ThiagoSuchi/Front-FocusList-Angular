@@ -102,8 +102,24 @@
         ></app-error-validations>
       </div>
 
-      <button class="bg-black rounded-[9px] mt-6 cursor-pointer h-14 text-[14pt] text-white" type="submit">
-        Criar conta
+      <button type="submit"
+        class="bg-black rounded-[9px] mt-6 cursor-pointer active:bg-zinc-700 h-14 text-[14pt] text-white transition-all" 
+
+        [class.opacity-50]="isLoadding()"
+        [class.cursor-not-allowed]="isLoadding()"
+        [class.cursor-pointer]="!isLoadding()"
+        [disabled]="isLoadding()"
+      >
+        @if (isLoadding()) {
+          <div class="flex items-center justify-center gap-3">
+            <mat-spinner diameter="18" strokeWidth="3">
+            </mat-spinner>
+            <span>Aguarde</span>
+          </div>
+        } @else {
+          Criar conta
+        }
+
       </button>
     </form>
 
