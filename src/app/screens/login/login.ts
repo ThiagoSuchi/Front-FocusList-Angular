@@ -5,11 +5,12 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from "@angula
 import { ValidationError } from '../../components/shared/validators/validationError';
 import { AuthService } from '../../core/services/auth.service';
 import { SnackBarService } from '../../components/shared/material/snack-bar.service';
-import { tap } from 'rxjs';
+import { delay, finalize, tap } from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterLink, DesignAuth, ReactiveFormsModule, ValidationError],
+  imports: [RouterLink, DesignAuth, ReactiveFormsModule, ValidationError, MatProgressSpinnerModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -19,6 +20,7 @@ export class Login implements OnInit {
   private readonly snackBarService = inject(SnackBarService);
   private readonly route = inject(ActivatedRoute);
 
+  public readonly isLoadding = signal(false);
   public name = signal('');
 
   ngOnInit(): void {
@@ -42,8 +44,14 @@ export class Login implements OnInit {
     if (this.form.invalid) return;
 
     const dto = this.form.getRawValue();
-    
+
+    this.isLoadding.set(true);
+
     this.authService.login(dto)
+      .pipe(
+        delay(300),
+        finalize(() => this.isLoadding.set(false))
+      )
       .subscribe({
         next: (res) => {
           this.authService.saveToken(res.token);
