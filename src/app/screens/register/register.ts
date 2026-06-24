@@ -5,10 +5,12 @@ import { ReactiveFormsModule, FormGroup, FormBuilder, Validators, type AbstractC
 import { ValidationError } from '../../components/shared/validators/validationError';
 import { AuthService } from '../../core/services/auth.service';
 import { SnackBarService } from '../../components/shared/material/snack-bar.service';
+import { delay, finalize } from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-register',
-  imports: [DesignAuth, RouterLink, ReactiveFormsModule, ValidationError],
+  imports: [DesignAuth, RouterLink, ReactiveFormsModule, ValidationError, MatProgressSpinnerModule],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
@@ -18,6 +20,7 @@ export class Register {
   private readonly snackBarService = inject(SnackBarService);
 
   public readonly viewPassword = signal(false);
+  public readonly isLoadding = signal(false);
 
   protected form!: FormGroup;
 
@@ -29,7 +32,7 @@ export class Register {
       ]],
       email: [null, [
         Validators.required,
-        Validators.email 
+        Validators.email
       ]],
       password: [null, [
         Validators.required,
@@ -70,23 +73,30 @@ export class Register {
   }
 
   submit() {
-    if  (this.form.invalid) return
+    if (this.form.invalid) return
 
     const dto = this.form.getRawValue();
 
-    this.authService.register(dto).subscribe({
-      next: (res) => {
-        const firstName = dto.name.split(' ')[0];
+    this.isLoadding.set(true);
 
-        this.snackBarService.showSnackBar(res.message, 4000, 'end', 'top');
-        this.router.navigate(['/login'], {
-          queryParams: { name: firstName }
-        });
-      },
-      error: (err) => {
-        this.snackBarService.showSnackBar(err.error.message, 4000, 'end', 'top')
-      }
-    })
+    this.authService.register(dto)
+      .pipe(
+        delay(500),
+        finalize(() => this.isLoadding.set(false))
+      )
+      .subscribe({
+        next: (res) => {
+          const firstName = dto.name.split(' ')[0];
+
+          this.snackBarService.showSnackBar(res.message, 4000, 'end', 'top');
+          this.router.navigate(['/login'], {
+            queryParams: { name: firstName }
+          });
+        },
+        error: (err) => {
+          this.snackBarService.showSnackBar(err.error.message, 4000, 'end', 'top')
+        }
+      })
   }
 
   togglePassword() {
