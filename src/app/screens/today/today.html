@@ -12,13 +12,17 @@
         <button type="button"
             class="bg-black rounded-lg cursor-pointer hover:bg-zinc-700 transition-all text-white p-1 px-4"
             
-            (click)="postTask($event, inputTask)">
+            [class.cursor-not-allowed]="isLoadingTask()"
+            [class.cursor-pointer]="!isLoadingTask()"
+            [disabled]="isLoadingTask()"    
+            (click)="postTask($event, inputTask)"
+        >
 
             @if (isLoadingTask()) {
                 <div class="flex items-center gap-2">
                     <mat-spinner diameter="18" strokeWidth="3">
                     </mat-spinner>
-                    <span>Loading</span>
+                    <span>Criando</span>
                 </div>
             } @else {
                 Adicionar
