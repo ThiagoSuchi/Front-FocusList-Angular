@@ -4,7 +4,7 @@
         font="font-bold"></app-title>
 
     <div class="flex gap-2 mt-20 items-center">
-        <span class="material-symbols-outlined !text-3xl">person</span>
+        <span class="material-symbols-outlined text-3xl!">person</span>
         <h2 class="text-2xl font-bold">Perfil</h2>
     </div>
 
@@ -13,43 +13,46 @@
         <!--Adicionar aqui a foto de perfil-->
         <div
             class="rounded-full border-2 flex justify-center items-center border-zinc-300 m-6 relative bg-zinc-200 w-30 h-30">
-            <span class="material-symbols-outlined !text-[40px]">
+            <span class="material-symbols-outlined text-[40px]!">
                 account_circle
             </span>
             <span
-                class="material-symbols-outlined !text-[20px] bg-black active:bg-zinc-500 rounded-xl p-1 pl-3 pr-3 hover:scale-105 transition-all cursor-pointer text-white absolute bottom-0 right-0">
+                class="material-symbols-outlined text-[20px]! bg-black active:bg-zinc-500 rounded-xl p-1 pl-3 pr-3 hover:scale-105 transition-all cursor-pointer text-white absolute bottom-0 right-0">
                 edit
             </span>
         </div>
 
-        <!-- Campo 1 -->
-        <div class="flex flex-col w-80">
-            <label class="text-sm text-black mb-1">
-                Nome Completo
-            </label>
-            <input type="text" placeholder="Alexandre Silva" class="bg-zinc-200 rounded-lg px-4 py-3 outline-none" />
-        </div>
-
-        <!-- Campo 2 -->
-        <div class="flex flex-col w-80">
-            <label class="text-sm text-black mb-1">
-                E-mail
-            </label>
-            <input type="email" placeholder="alexandre.silva@focuslist.com"
-                class="bg-zinc-200 rounded-lg px-4 py-3 outline-none" />
-        </div>
+        <form [formGroup]="form"
+            class="flex gap-6"
+        >
+            <!-- Campo 1 -->
+            <div class="flex flex-col w-80">
+                <label class="text-sm text-black mb-1">
+                    Nome Completo
+                </label>
+                <input type="text" formControlName="name" class="bg-zinc-200 rounded-lg px-4 py-3 outline-none" />
+            </div>
+    
+            <!-- Campo 2 -->
+            <div class="flex flex-col w-80">
+                <label class="text-sm text-black mb-1">
+                    E-mail
+                </label>
+                <input type="email" formControlName="email" class="bg-zinc-200 rounded-lg px-4 py-3 outline-none" />
+            </div>
+        </form>
     </div>
 
     <!-- SESSÃO - PREFERÊNCIAS -->
     <div class="flex gap-2 mt-20 items-center">
-        <span class="material-symbols-outlined !text-3xl">tune</span>
+        <span class="material-symbols-outlined text-3xl!">tune</span>
         <h2 class="text-2xl font-bold">Preferências</h2>
     </div>
 
     <div>
         <!-- Tema Escuro -->
         <div class="group session-preference">
-            <span class="material-symbols-outlined icons-preference p-3 !text-[30px] rounded-full">dark_mode</span>
+            <span class="material-symbols-outlined icons-preference p-3 text-[30px]! rounded-full">dark_mode</span>
             <div class="w-full">
                 <h1 class="text-[15pt]">Tema Escuro</h1>
                 <p class="text-[14pt] text-zinc-800">Alternar visual da interface</p>
@@ -70,7 +73,7 @@
 
         <!-- Notificações -->
        <div class="group session-preference">
-            <span class="material-symbols-outlined icons-preference p-3 !text-[30px] rounded-full">notifications_active</span>
+            <span class="material-symbols-outlined icons-preference p-3 text-[30px]! rounded-full">notifications_active</span>
             <div class="w-full">
                 <h1 class="text-[15pt]">Notificações</h1>
                 <p class="text-[14pt] text-zinc-800">Alerta de prazos e lembretes</p>
@@ -93,28 +96,28 @@
         <div class="flex gap-5 justify-between mt-5">
             <!-- Sicronização em nuvem -->
             <div class="group box-preference bg-[#d1def3] relative cursor-pointer">
-                <span class="material-symbols-outlined mb-7 !text-[40px] text-[#343f50]">
+                <span class="material-symbols-outlined mb-7 text-[40px]! text-[#343f50]">
                     autorenew
                 </span>
                 <h1 class="text-[#343f50] text-2xl font-bold">Sicronização em Nuvem</h1>
                 <p class="text-[#343f50]">Último backup: {{ null }}</p>
                 <span
-                    class="material-symbols-outlined text-[#343f50] !text-3xl opacity-0 group-hover:opacity-100 transition-all duration-300 absolute right-5 top-1/4 -translate-y-1/2">chevron_right</span>
+                    class="material-symbols-outlined text-[#343f50] text-3xl! opacity-0 group-hover:opacity-100 transition-all duration-300 absolute right-5 top-1/4 -translate-y-1/2">chevron_right</span>
             </div>
             <!-- Privacidade -->
             <div class="group box-preference bg-zinc-300 relative cursor-pointer">
-                <span class="material-symbols-outlined mb-7 !text-[40px]">
+                <span class="material-symbols-outlined mb-7 text-[40px]!">
                     security
                 </span>
                 <h1 class="text-2xl font-bold">Privacidade</h1>
                 <p>Dados criptografados de ponta a ponta</p>
                 <span
-                    class="material-symbols-outlined text-zinc-700 !text-3xl opacity-0 group-hover:opacity-100 transition-all duration-300 absolute right-5 top-1/4 -translate-y-1/2">chevron_right</span>
+                    class="material-symbols-outlined text-zinc-700 text-3xl! opacity-0 group-hover:opacity-100 transition-all duration-300 absolute right-5 top-1/4 -translate-y-1/2">chevron_right</span>
             </div>
         </div>
 
         <!-- Deletar conta -->
-        <div class="flex justify-between items-center mt-20 p-5 rounded-xl border-2 border-[#f3dfdff6] mt-4 bg-[#f7efef] h-25">
+        <div class="flex justify-between items-center mt-20 p-5 rounded-xl border-2 border-[#f3dfdff6] bg-[#f7efef] h-25">
             <div>
                 <h1 class="text-red-700 font-bold">Excluir Conta</h1>
                 <p class="text-red-800">Todos os seus dados serão removidos permanentemente.</p>
