@@ -14,4 +14,14 @@ export class UserService {
     getUser(): Observable<IUserProfileDTO> {
         return this._httpClient.get<IUserProfileDTO>(`${this.API}/profile`)
     }
+
+    uploadProfileImage(file: File): Observable<IUserProfileDTO> {
+        // Para upload de arquivo via formulário HTTP é usado multipart/form-data 
+        // e o FormData faz isso automáticamente
+        const formData = new FormData();
+
+        formData.append('file', file);
+
+        return this._httpClient.post(`${this.API}/profile/image`, formData);
+    }
 }
