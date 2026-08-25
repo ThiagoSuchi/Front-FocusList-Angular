@@ -16,6 +16,11 @@ export interface IUserProfileDTO {
   profileImageUrl?: string | null;
 }
 
+export interface IUploadProfileImageResponse {
+  message: string;
+  profileImageUrl: string;
+}
+
 export interface IRegisterUserDTO {
   name: string;
   email: string;
